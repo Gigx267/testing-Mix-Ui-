@@ -71,7 +71,6 @@
 
  
     
-    <!-- Hero Section -->
    <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -218,6 +217,116 @@
         .nav-cta:hover {
             transform: rotate(0) translateY(-3px);
             box-shadow: 8px 8px 0 rgba(74, 44, 42, 0.1);
+        }
+        
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            width: 30px;
+            height: 25px;
+            position: relative;
+            transform: rotate(0deg);
+            transition: .5s ease-in-out;
+            z-index: 101;
+        }
+        
+        .hamburger span {
+            display: block;
+            position: absolute;
+            height: 3px;
+            width: 100%;
+            background: var(--coffee-brown);
+            border-radius: 3px;
+            opacity: 1;
+            left: 0;
+            transform: rotate(0deg);
+            transition: .25s ease-in-out;
+        }
+        
+        .hamburger span:nth-child(1) {
+            top: 0px;
+        }
+        
+        .hamburger span:nth-child(2), .hamburger span:nth-child(3) {
+            top: 10px;
+        }
+        
+        .hamburger span:nth-child(4) {
+            top: 20px;
+        }
+        
+        .hamburger.open span:nth-child(1) {
+            top: 10px;
+            width: 0%;
+            left: 50%;
+        }
+        
+        .hamburger.open span:nth-child(2) {
+            transform: rotate(45deg);
+        }
+        
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg);
+        }
+        
+        .hamburger.open span:nth-child(4) {
+            top: 10px;
+            width: 0%;
+            left: 50%;
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 350px;
+            height: 100vh;
+            background-color: var(--warm-white);
+            z-index: 100;
+            padding: 6rem 2rem 2rem;
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            transition: right 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            overflow-y: auto;
+        }
+        
+        .mobile-menu.active {
+            right: 0;
+        }
+        
+        .mobile-menu .nav-link {
+            font-size: 1.2rem;
+            padding: 0.8rem;
+            border-bottom: 1px solid rgba(255, 107, 139, 0.2);
+        }
+        
+        .mobile-menu .nav-cta {
+            margin: 1rem 0 0;
+            transform: none;
+            text-align: center;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
         
         /* Hero Section */
@@ -445,24 +554,21 @@
             }
         }
         
-        @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                padding: 1rem;
-            }
-            
+        @media (max-width: 992px) {
             .nav-links {
-                margin-top: 1rem;
-                gap: 1rem;
-                flex-wrap: wrap;
-                justify-content: center;
+                display: none;
             }
             
-            .nav-cta {
-                margin-left: 0;
-                margin-top: 0.5rem;
+            .hamburger {
+                display: block;
             }
             
+            .navbar {
+                padding: 1rem 5%;
+            }
+        }
+        
+        @media (max-width: 768px) {
             .hero {
                 flex-direction: column;
                 height: auto;
@@ -503,17 +609,42 @@
     <!-- Asymmetrical Navbar -->
     <nav class="navbar">
         <a href="#" class="navbar-logo">MIX <span>Café</span></a>
+        
+        <!-- Desktop Navigation -->
         <div class="nav-links">
             <a href="#" class="nav-link active">Home</a>
             <a href="#" class="nav-link">Reserve</a>
-            <a href="#" class="nav-link">Shop </a>
+            <a href="#" class="nav-link">Shop</a>
             <a href="#" class="nav-link">Explore</a>
             <a href="#" class="nav-link">Academy</a>
             <a href="#" class="nav-link">Experiences</a>
             <a href="#" class="nav-link">Blog</a>
             <a href="#" class="nav-cta">Join Club</a>
         </div>
+        
+        <!-- Hamburger Menu Button -->
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </nav>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu">
+        <a href="#" class="nav-link active">Home</a>
+        <a href="#" class="nav-link">Reserve</a>
+        <a href="#" class="nav-link">Shop</a>
+        <a href="#" class="nav-link">Explore</a>
+        <a href="#" class="nav-link">Academy</a>
+        <a href="#" class="nav-link">Experiences</a>
+        <a href="#" class="nav-link">Blog</a>
+        <a href="#" class="nav-cta">Join Club</a>
+    </div>
+    
+    <!-- Overlay for mobile menu -->
+    <div class="overlay"></div>
     
     <!-- Hero Section -->
     <section class="hero">
@@ -605,10 +736,85 @@
                 navbar.classList.remove('hidden');
             }
         });
+        
+        // Mobile menu functionality
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const overlay = document.querySelector('.overlay');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('open');
+            mobileMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Toggle body scroll when menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        overlay.addEventListener('click', () => {
+            hamburger.classList.remove('open');
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close menu when clicking on a link
+        const mobileLinks = document.querySelectorAll('.mobile-menu .nav-link');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('open');
+                mobileMenu.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
     </script>
 </body>
 </html>
-    <!---eND OF HERO -->
+
+
+<header class="kd-section-home-video">
+    <div class="kd-home-video-component">
+        <div class="kd-home-video-content">
+            <div class="kd-home-video-video-wrapper">
+                <div data-poster-url="https://cdn.prod.website-files.com/6777ca72cf24680980ebd1e0%2F677b2db12646de216e30db89_4694337-hd_1366_720_50fps-poster-00001.jpg" data-video-urls="https://cdn.prod.website-files.com/6777ca72cf24680980ebd1e0%2F677b2db12646de216e30db89_4694337-hd_1366_720_50fps-transcode.mp4,https://cdn.prod.website-files.com/6777ca72cf24680980ebd1e0%2F677b2db12646de216e30db89_4694337-hd_1366_720_50fps-transcode.webm" data-autoplay="true" data-loop="true" data-wf-ignore="true" class="kd-home-video-backgroundvideo w-background-video w-background-video-atom">
+                    <video id="ad9f8261-feab-1266-125d-460b29a3cdbe-video" autoplay="" loop="" style="background-image:url(&quot;https://cdn.prod.website-files.com/6777ca72cf24680980ebd1e0%2F677b2db12646de216e30db89_4694337-hd_1366_720_50fps-poster-00001.jpg&quot;)" muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover">
+                        <source src="https://cdn.prod.website-files.com/6777ca72cf24680980ebd1e0%2F677b2db12646de216e30db89_4694337-hd_1366_720_50fps-transcode.mp4" data-wf-ignore="true"/>
+                        <source src="https://cdn.prod.website-files.com/6777ca72cf24680980ebd1e0%2F677b2db12646de216e30db89_4694337-hd_1366_720_50fps-transcode.webm" data-wf-ignore="true"/>
+                    </video>
+                </div>
+            </div>
+            <div class="kd-home-video-content-bottom">
+                <div class="kd-home-video-card">
+                    <div class="kd-margin-bottom margin-small">
+                        <h2 class="kd-heading-style-h1 text-color-white size-vw">MIX CAFE</h2>
+                        <p class="kd-text-style-regular text-color-white align-middle">Where flavour meets atmosphere</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -663,28 +869,7 @@
     </div>
 </div>
 
-<header class="kd-section-home-video">
-    <div class="kd-home-video-component">
-        <div class="kd-home-video-content">
-            <div class="kd-home-video-video-wrapper">
-                <div data-poster-url="https://cdn.prod.website-files.com/6777ca72cf24680980ebd1e0%2F677b2db12646de216e30db89_4694337-hd_1366_720_50fps-poster-00001.jpg" data-video-urls="https://cdn.prod.website-files.com/6777ca72cf24680980ebd1e0%2F677b2db12646de216e30db89_4694337-hd_1366_720_50fps-transcode.mp4,https://cdn.prod.website-files.com/6777ca72cf24680980ebd1e0%2F677b2db12646de216e30db89_4694337-hd_1366_720_50fps-transcode.webm" data-autoplay="true" data-loop="true" data-wf-ignore="true" class="kd-home-video-backgroundvideo w-background-video w-background-video-atom">
-                    <video id="ad9f8261-feab-1266-125d-460b29a3cdbe-video" autoplay="" loop="" style="background-image:url(&quot;https://cdn.prod.website-files.com/6777ca72cf24680980ebd1e0%2F677b2db12646de216e30db89_4694337-hd_1366_720_50fps-poster-00001.jpg&quot;)" muted="" playsinline="" data-wf-ignore="true" data-object-fit="cover">
-                        <source src="https://cdn.prod.website-files.com/6777ca72cf24680980ebd1e0%2F677b2db12646de216e30db89_4694337-hd_1366_720_50fps-transcode.mp4" data-wf-ignore="true"/>
-                        <source src="https://cdn.prod.website-files.com/6777ca72cf24680980ebd1e0%2F677b2db12646de216e30db89_4694337-hd_1366_720_50fps-transcode.webm" data-wf-ignore="true"/>
-                    </video>
-                </div>
-            </div>
-            <div class="kd-home-video-content-bottom">
-                <div class="kd-home-video-card">
-                    <div class="kd-margin-bottom margin-small">
-                        <h2 class="kd-heading-style-h1 text-color-white size-vw">MIX CAFE</h2>
-                        <p class="kd-text-style-regular text-color-white align-middle">Where flavour meets atmosphere</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+
 
 
 
