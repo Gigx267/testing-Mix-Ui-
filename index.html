@@ -586,48 +586,102 @@
     </style>
 </head>
 <body>
-    <section class="section with-light-bg">
-        <div class="container">
-            <!-- Decorative background elements -->
-            <div class="bento-bg-element bg-element-1"></div>
-            <div class="bento-bg-element bg-element-2"></div>
-            
-            <div class="section-intro">
-                <p class="section-subtitle">Our Story</p>
-                <h2 class="section-title">More Than Just a Café</h2>
-                <p class="section-description">Our menu is a celebration of flavors from around the world
-A modern café experience in Abuja, redefining Nigeria's culinary and hospitality scene with intimate, crafted, and nostalgic flavors</p>
-            </div>
+ <section class="section with-light-bg" style="padding: 2rem 1rem; position: relative; overflow: hidden;">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; position: relative;">
+        <!-- Decorative background elements -->
+        <div class="bento-bg-element" style="position: absolute; top: 10%; left: 5%; width: 50px; height: 50px; background: #ff5c8d; opacity: 0.1; border-radius: 10px;"></div>
+        <div class="bento-bg-element" style="position: absolute; bottom: 10%; right: 5%; width: 70px; height: 70px; background: #d23369; opacity: 0.1; border-radius: 15px;"></div>
+        
+        <div class="section-intro" style="text-align: center; margin-bottom: 2rem;">
+            <p class="section-subtitle" style="color: #ff5c8d; font-size: 1rem; letter-spacing: 1px; margin-bottom: 0.5rem; text-transform: uppercase;">
+                Our Story
+            </p>
+            <h2 class="section-title" style="font-size: 2rem; color: #d23369; margin-bottom: 1rem;">
+                More Than Just a Café
+            </h2>
+            <p class="section-description" style="color: #8a2d6d; max-width: 600px; margin: 0 auto 2rem; line-height: 1.6; font-size: 1rem;">
+                Our menu is a celebration of flavors from around the world. A modern café experience in Abuja, redefining Nigeria's culinary and hospitality scene with intimate, crafted, and nostalgic flavors.
+            </p>
+        </div>
 
-            <!-- Image Grid -->
-            <div class="image-grid">
-                <div class="image-grid-item">
-                    <div class="image-card">
-                     
-                        <div class="image-caption">
-                            <h3>Our Space</h3>
-                            <p>A welcoming atmosphere designed for comfort</p>
-                        </div>
+        <!-- Image Grid -->
+        <div class="image-grid" style="display: grid; grid-template-columns: 1fr; gap: 1rem;">
+            <div class="image-grid-item">
+                <div class="image-card" style="position: relative; overflow: hidden; border-radius: 8px; height: 300px;">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                         style="width: 100%; height: 100%; object-fit: cover;" 
+                         alt="Our Space">
+                    <div class="image-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.9); padding: 1rem;">
+                        <h3 style="color: #d23369; margin: 0 0 0.5rem 0; font-size: 1.2rem;">Our Space</h3>
+                        <p style="color: #8a2d6d; margin: 0; font-size: 0.9rem;">A welcoming atmosphere designed for comfort</p>
                     </div>
                 </div>
-                
-               <div class="image-grid-item">
-    <div class="image-card">
-        <video controls autoplay muted loop>
-            <source src="https://cdn.pixabay.com/video/2025/01/04/250784_tiny.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-        <div class="image-caption">
-           
+            </div>
+            
+            <div class="image-grid-item">
+                <div class="image-card" style="position: relative; overflow: hidden; border-radius: 8px; height: 300px;">
+                    <video controls autoplay muted loop style="width: 100%; height: 100%; object-fit: cover;">
+                        <source src="https://cdn.pixabay.com/video/2025/01/04/250784_tiny.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="image-caption" style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(255, 255, 255, 0.9); padding: 1rem;">
+                        <!-- Empty caption as per original -->
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-               
+</section>
 
-          
-        </div>
-    </section>
+<style>
+    @media (min-width: 768px) {
+        .section {
+            padding: 4rem 2rem !important;
+        }
+        
+        .section-title {
+            font-size: 2.5rem !important;
+        }
+        
+        .section-description {
+            font-size: 1.1rem !important;
+        }
+        
+        .image-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 2rem !important;
+        }
+        
+        .image-card {
+            height: 350px !important;
+        }
+        
+        .bento-bg-element {
+            width: 80px !important;
+            height: 80px !important;
+        }
+        
+        .bg-element-1 {
+            top: 20% !important;
+            left: 10% !important;
+        }
+        
+        .bg-element-2 {
+            bottom: 20% !important;
+            right: 10% !important;
+        }
+    }
 
+    @media (min-width: 1024px) {
+        .image-card {
+            height: 400px !important;
+        }
+        
+        .section-title {
+            font-size: 3rem !important;
+        }
+    }
+</style>
     <!-- GSAP Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
@@ -1076,7 +1130,7 @@ A modern café experience in Abuja, redefining Nigeria's culinary and hospitalit
         </video>
       </div>
       <div style="position: absolute; bottom: -15px; right: -10px; background: white; color: #ff5c8d; padding: 0.3rem 0.8rem; font-family: 'Courier New', monospace; font-size: 0.7rem; transform: rotate(-3deg);">
-        CURRENT VIBE: PINK DREAM
+      
       </div>
     </div>
   </div>
@@ -1162,8 +1216,7 @@ A modern café experience in Abuja, redefining Nigeria's culinary and hospitalit
 
   <!-- Confetti elements -->
   <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: 
-    url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 100 100\"><circle fill=\"%23d23369\" opacity=\"0.1\" cx=\"20\" cy=\"20\" r=\"2\"/><circle fill=\"%23ff5c8d\" opacity=\"0.2\" cx=\"70\" cy=\"15\" r=\"1.5\"/><rect fill=\"%23ff85b3\" opacity=\"0.1\" width=\"3\" height=\"3\" x=\"50\" y=\"50\" transform=\"rotate(45)\"/></svg>');
-    pointer-events: none;"></div>
+    url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100\" height=\"100\" viewBox=\"0 0 100 100\"><circle fill=\"%23d23369\" opacity=\"0.1\" cx=\"20\" cy=\"20\" r=\"2\"/><circle fill=\"%23ff5c8d\" opacity=\"0.2\" cx=\"70\" cy=\"15\" r=\"1.5\"/><rect fill=\"%23ff85b3\" opacity=\"0.1\" width=\"3\" height=\"3\" x=\"50\" y=\"50\" transform=\"rotate(45)\"/></svg>')</div>
 
   <div class="container" style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr; gap: 2rem; align-items: center;">
     
